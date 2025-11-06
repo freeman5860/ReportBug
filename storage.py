@@ -60,11 +60,10 @@ class JSONStorage:
         issue = Issue(
             id=issue_id,
             description=issue_data.description,
-            reporter=issue_data.reporter,
+            reporter=issue_data.reporter or "",
             created_at=created_at,
             status=issue_data.status or "待处理",
             priority=issue_data.priority or "中",
-            category=issue_data.category or "其他",
             remarks=issue_data.remarks or "",
             recorded_at=recorded_at
         )
@@ -121,8 +120,7 @@ class JSONStorage:
         return {
             "total": len(issues),
             "by_status": self._count_by_field(issues, "status"),
-            "by_priority": self._count_by_field(issues, "priority"),
-            "by_category": self._count_by_field(issues, "category")
+            "by_priority": self._count_by_field(issues, "priority")
         }
     
     @staticmethod

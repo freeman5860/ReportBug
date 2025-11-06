@@ -10,12 +10,11 @@ from pydantic import BaseModel, Field
 class IssueCreate(BaseModel):
     """创建问题的请求模型"""
     description: str = Field(..., description="问题描述", min_length=1)
-    reporter: str = Field(..., description="反馈人", min_length=1)
+    reporter: Optional[str] = Field(None, description="反馈人")
     created_at: Optional[str] = Field(None, description="问题创建时间 (格式: YYYY-MM-DD HH:MM:SS)")
-    status: Optional[str] = Field("待处理", description="问题状态")
-    priority: Optional[str] = Field("中", description="优先级")
-    category: Optional[str] = Field("其他", description="问题分类")
-    remarks: Optional[str] = Field("", description="备注")
+    status: Optional[str] = Field(None, description="问题状态")
+    priority: Optional[str] = Field(None, description="优先级")
+    remarks: Optional[str] = Field(None, description="备注")
 
     class Config:
         json_schema_extra = {
@@ -25,7 +24,6 @@ class IssueCreate(BaseModel):
                 "created_at": "2025-11-05 14:30:00",
                 "status": "待处理",
                 "priority": "高",
-                "category": "功能bug",
                 "remarks": "偶现问题"
             }
         }
@@ -39,7 +37,6 @@ class Issue(BaseModel):
     created_at: str = Field(..., description="问题创建时间")
     status: str = Field(..., description="问题状态")
     priority: str = Field(..., description="优先级")
-    category: str = Field(..., description="问题分类")
     remarks: str = Field(..., description="备注")
     recorded_at: str = Field(..., description="记录时间（系统生成）")
 

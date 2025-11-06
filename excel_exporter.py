@@ -22,7 +22,6 @@ class ExcelExporter:
         "问题创建时间",
         "状态",
         "优先级",
-        "问题分类",
         "备注"
     ]
     
@@ -46,7 +45,7 @@ class ExcelExporter:
         ws.title = "问题跟进记录"
         
         # 设置列宽
-        column_widths = [8, 40, 12, 20, 12, 10, 12, 30]
+        column_widths = [8, 40, 12, 20, 12, 10, 30]
         for i, width in enumerate(column_widths, start=1):
             ws.column_dimensions[self._get_column_letter(i)].width = width
         
@@ -129,14 +128,8 @@ class ExcelExporter:
             elif issue.priority == "中":
                 cell.fill = PatternFill(start_color='FFEB9C', end_color='FFEB9C', fill_type='solid')
             
-            # 问题分类
-            cell = ws.cell(row=row_idx, column=7, value=issue.category)
-            cell.font = data_font
-            cell.alignment = center_alignment
-            cell.border = border
-            
             # 备注
-            cell = ws.cell(row=row_idx, column=8, value=issue.remarks)
+            cell = ws.cell(row=row_idx, column=7, value=issue.remarks)
             cell.font = data_font
             cell.alignment = data_alignment
             cell.border = border
